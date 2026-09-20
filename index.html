@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SHZN.AI — Your AI Assistant</title>
+
+<meta name="description" content="SHZN.AI is a modern AI-powered assistant for study, writing, coding, calculations and creative work.">
+<meta name="keywords" content="SHZN.AI, AI, artificial intelligence, AI assistant, study AI, coding AI">
+<meta name="author" content="SHZN.AI">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+:root{
+    --purple:#8b5cf6;
+    --blue:#2563eb;
+    --navy:#07142f;
+    --teal:#14b8a6;
+    --dark:#030712;
+    --card:rgba(255,255,255,.07);
+    --border:rgba(255,255,255,.12);
+    --text:#f8fafc;
+    --muted:#a8b2c5;
+}
+
+body{
+    min-height:100vh;
+    color:var(--text);
+    background:
+        radial-gradient(circle at 10% 10%,rgba(139,92,246,.28),transparent 30%),
+        radial-gradient(circle at 90% 20%,rgba(37,99,235,.25),transparent 30%),
+        radial-gradient(circle at 50% 90%,rgba(20,184,166,.15),transparent 30%),
+        var(--dark);
+}
+
+/* NAVBAR */
+
+nav{
+    height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 7%;
+    border-bottom:1px solid var(--border);
+    background:rgba(3,7,18,.75);
+    backdrop-filter:blur(18px);
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.logo span{
+    background:linear-gradient(90deg,var(--purple),#60a5fa,var(--teal));
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.nav-links{
+    display:flex;
+    gap:28px;
+}
+
+.nav-links a{
+    color:#dbeafe;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.nav-links a:hover{
+    color:#fff;
+}
+
+.login-btn{
+    border:1px solid rgba(139,92,246,.6);
+    background:rgba(139,92,246,.15);
+    color:white;
+    padding:10px 18px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+/* HERO */
+
+.hero{
+    min-height:620px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:70px 20px;
+}
+
+.hero-content{
+    max-width:850px;
+}
+
+.badge{
+    display:inline-block;
+    padding:8px 16px;
+    border:1px solid rgba(20,184,166,.35);
+    background:rgba(20,184,166,.1);
+    color:#7dd3fc;
+    border-radius:30px;
+    font-size:13px;
+    margin-bottom:25px;
+}
+
+.hero h1{
+    font-size:clamp(50px,8vw,92px);
+    line-height:1;
+    margin-bottom:22px;
+    background:linear-gradient(90deg,#fff,var(--purple),#60a5fa,var(--teal));
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero h2{
+    font-size:clamp(24px,4vw,42px);
+    margin-bottom:20px;
+}
+
+.hero p{
+    color:var(--muted);
+    font-size:17px;
+    line-height:1.7;
+    max-width:650px;
+    margin:auto;
+}
+
+.hero-buttons{
+    margin-top:35px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.primary{
+    border:0;
+    padding:15px 28px;
+    border-radius:12px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    background:linear-gradient(135deg,var(--purple),var(--blue));
+    box-shadow:0 10px 35px rgba(99,102,241,.3);
+}
+
+.secondary{
+    padding:15px 28px;
+    border-radius:12px;
+    color:white;
+    cursor:pointer;
+    background:rgba(255,255,255,.06);
+    border:1px solid var(--border);
+}
+
+/* AI SECTION */
+
+.ai-section{
+    padding:80px 7%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:45px;
+}
+
+.section-title h2{
+    font-size:40px;
+    margin-bottom:12px;
+}
+
+.section-title p{
+    color:var(--muted);
+}
+
+.ai-box{
+    max-width:1000px;
+    margin:auto;
+    background:rgba(8,15,35,.82);
+    border:1px solid var(--border);
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 30px 100px rgba(0,0,0,.4);
+}
+
+.ai-top{
+    padding:18px 22px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.ai-status{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.status-dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#22c55e;
+    box-shadow:0 0 12px #22c55e;
+}
+
+.chat{
+    height:430px;
+    padding:25px;
+    overflow-y:auto;
+}
+
+.message{
+    max-width:78%;
+    margin-bottom:18px;
+    padding:14px 17px;
+    border-radius:16px;
+    line-height:1.6;
+    white-space:pre-wrap;
+}
+
+.ai-message{
+    background:rgba(139,92,246,.12);
+    border:1px solid rgba(139,92,246,.18);
+}
+
+.user-message{
+    margin-left:auto;
+    background:linear-gradient(135deg,#4338ca,#2563eb);
+}
+
+.input-area{
+    border-top:1px solid var(--border);
+    padding:18px;
+}
+
+.input-row{
+    display:flex;
+    gap:10px;
+}
+
+.input-row textarea{
+    flex:1;
+    resize:none;
+    height:55px;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.05);
+    color:white;
+    outline:none;
+    border-radius:13px;
+    padding:16px;
+}
+
+.send-btn{
+    width:60px;
+    border:0;
+    border-radius:13px;
+    background:linear-gradient(135deg,var(--purple),var(--teal));
+    color:white;
+    cursor:pointer;
+    font-size:20px;
+}
+
+.quick{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:12px;
+}
+
+.quick button{
+    background:rgba(255,255,255,.05);
+    color:#cbd5e1;
+    border:1px solid var(--border);
+    padding:8px 12px;
+    border-radius:20px;
+    cursor:pointer;
+}
+
+/* FEATURES */
+
+.features{
+    padding:80px 7%;
+}
+
+.feature-grid{
+    max-width:1100px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+}
+
+.feature{
+    padding:28px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    transition:.3s;
+}
+
+.feature:hover{
+    transform:translateY(-5px);
+    border-color:rgba(139,92,246,.5);
+}
+
+.feature-icon{
+    font-size:35px;
+    margin-bottom:15px;
+}
+
+.feature h3{
+    margin-bottom:10px;
+}
+
+.feature p{
+    color:var(--muted);
+    line-height:1.6;
+}
+
+/* ABOUT */
+
+.about{
+    padding:80px 7%;
+    text-align:center;
+}
+
+.about-box{
+    max-width:900px;
+    margin:auto;
+    padding:40px;
+    border:1px solid var(--border);
+    border-radius:25px;
+    background:var(--card);
+}
+
+.about-box p{
+    color:var(--muted);
+    line-height:1.8;
+}
+
+/* FOOTER */
+
+footer{
+    padding:35px 7%;
+    border-top:1px solid var(--border);
+    text-align:center;
+    color:#7f8ba3;
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.7);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:500;
+    padding:20px;
+}
+
+.modal-box{
+    width:100%;
+    max-width:420px;
+    background:#0b1328;
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:30px;
+}
+
+.modal-box h2{
+    margin-bottom:20px;
+}
+
+.modal-box input{
+    width:100%;
+    padding:14px;
+    margin-bottom:12px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:#111b32;
+    color:white;
+    outline:none;
+}
+
+.close{
+    float:right;
+    cursor:pointer;
+    color:#94a3b8;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:700px){
+    .nav-links{
+        display:none;
+    }
+
+    nav{
+        padding:0 5%;
+    }
+
+    .hero{
+        min-height:520px;
+    }
+
+    .message{
+        max-width:90%;
+    }
+
+    .chat{
+        height:400px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+
+<nav>
+    <div class="logo">
+        <span>SHZN.AI</span>
+    </div>
+
+    <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#ai">AI Assistant</a>
+        <a href="#features">Features</a>
+        <a href="#about">About</a>
+    </div>
+
+    <button class="login-btn" onclick="openLogin()">Login</button>
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+    <div class="hero-content">
+
+        <div class="badge">✦ Next Generation AI Assistant</div>
+
+        <h1>SHZN.AI</h1>
+
+        <h2>Think. Create. Learn. Build.</h2>
+
+        <p>
+            Your intelligent digital assistant for studying, writing,
+            coding, calculations, ideas, creativity and everyday questions.
+        </p>
+
+        <div class="hero-buttons">
+            <button class="primary" onclick="scrollToAI()">
+                Start with SHZN.AI →
+            </button>
+
+            <button class="secondary" onclick="document.getElementById('features').scrollIntoView()">
+                Explore Features
+            </button>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- AI -->
+
+<section class="ai-section" id="ai">
+
+    <div class="section-title">
+        <h2>Ask SHZN.AI</h2>
+        <p>Your AI workspace starts here.</p>
+    </div>
+
+    <div class="ai-box">
+
+        <div class="ai-top">
+            <div class="ai-status">
+                <div class="status-dot"></div>
+                <strong>SHZN.AI Assistant</strong>
+            </div>
+
+            <button class="quick" onclick="clearChat()">
+                Clear
+            </button>
+        </div>
+
+        <div class="chat" id="chat">
+
+            <div class="message ai-message">
+                👋 Hello! I'm SHZN.AI.
+
+                Ask me something about studies, writing, coding,
+                mathematics, science, ideas or creative work.
+
+                How can I help you?
+            </div>
+
+        </div>
+
+        <div class="input-area">
+
+            <div class="input-row">
+
+                <textarea
+                    id="userInput"
+                    placeholder="Ask SHZN.AI anything..."
+                    onkeydown="handleEnter(event)"
+                ></textarea>
+
+                <button class="send-btn" onclick="sendMessage()">
+                    ➤
+                </button>
+
+            </div>
+
+            <div class="quick">
+
+                <button onclick="quickAsk('Explain this topic in easy words.')">
+                    📚 Study
+                </button>
+
+                <button onclick="quickAsk('Help me write this professionally.')">
+                    ✍️ Writing
+                </button>
+
+                <button onclick="quickAsk('Help me understand this coding problem.')">
+                    💻 Coding
+                </button>
+
+                <button onclick="quickAsk('Solve this calculation step by step.')">
+                    🧮 Math
+                </button>
+
+                <button onclick="quickAsk('Give me creative ideas for a design.')">
+                    🎨 Design
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section class="features" id="features">
+
+    <div class="section-title">
+        <h2>What SHZN.AI Can Do</h2>
+        <p>One workspace for multiple AI-powered tasks.</p>
+    </div>
+
+    <div class="feature-grid">
+
+        <div class="feature">
+            <div class="feature-icon">🤖</div>
+            <h3>AI Assistant</h3>
+            <p>Ask questions and get helpful AI-generated responses.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">📚</div>
+            <h3>Study Assistant</h3>
+            <p>Understand difficult subjects using simple explanations.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">💻</div>
+            <h3>Code Assistant</h3>
+            <p>Learn programming concepts and understand code.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">✍️</div>
+            <h3>AI Writer</h3>
+            <p>Create, improve and organize written content.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">🧮</div>
+            <h3>Calculator</h3>
+            <p>Work through mathematical calculations and problems.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">🎨</div>
+            <h3>Creative Assistant</h3>
+            <p>Generate ideas for graphics, projects, branding and more.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">📄</div>
+            <h3>Notes Helper</h3>
+            <p>Turn complicated information into easier study material.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">💡</div>
+            <h3>Idea Generator</h3>
+            <p>Brainstorm ideas for websites, projects and creative work.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section class="about" id="about">
+
+    <div class="section-title">
+        <h2>About SHZN.AI</h2>
+    </div>
+
+    <div class="about-box">
+
+        <p>
+            SHZN.AI is designed as a modern AI-powered digital assistant
+            that brings learning, creativity, coding, writing and problem
+            solving together in one simple workspace.
+        </p>
+
+        <br>
+
+        <p>
+            SHZN.AI aims to provide clear, useful and easy-to-understand
+            assistance while keeping the interface simple and professional.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+    © 2026 SHZN.AI — All Rights Reserved.
+</footer>
+
+
+<!-- LOGIN MODAL -->
+
+<div class="modal" id="loginModal">
+
+    <div class="modal-box">
+
+        <span class="close" onclick="closeLogin()">✕</span>
+
+        <h2>Welcome to SHZN.AI</h2>
+
+        <input
+            type="text"
+            id="username"
+            placeholder="Username"
+        >
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Email"
+        >
+
+        <button class="primary" style="width:100%;" onclick="loginUser()">
+            Continue
+        </button>
+
+        <p id="loginMessage"
+           style="color:#94a3b8;margin-top:15px;text-align:center;">
+        </p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   SHZN.AI SETTINGS / INSTRUCTIONS
+   ========================================= */
+
+const SHZN_INSTRUCTIONS = {
+
+    name: "SHZN.AI",
+
+    personality:
+        "Helpful, clear, friendly and professional AI assistant.",
+
+    rules: [
+        "Give clear answers.",
+        "Use simple wording when the user asks for simple wording.",
+        "Explain difficult concepts step by step.",
+        "Do not intentionally provide unsafe instructions.",
+        "Be respectful.",
+        "For school questions, keep explanations appropriate for the student's level.",
+        "For coding questions, provide understandable code and explanations."
+    ]
+
+};
+
+
+/* =========================================
+   CHAT SYSTEM
+   ========================================= */
+
+const chat = document.getElementById("chat");
+const input = document.getElementById("userInput");
+
+
+function addMessage(text,type){
+
+    const message = document.createElement("div");
+
+    message.className =
+        "message " +
+        (type === "user" ? "user-message" : "ai-message");
+
+    message.textContent = text;
+
+    chat.appendChild(message);
+
+    chat.scrollTop = chat.scrollHeight;
+}
+
+
+function sendMessage(){
+
+    const text = input.value.trim();
+
+    if(!text) return;
+
+    addMessage(text,"user");
+
+    input.value = "";
+
+    showAIResponse(text);
+}
+
+
+function quickAsk(text){
+
+    input.value = text;
+
+    input.focus();
+
+}
+
+
+function handleEnter(event){
+
+    if(event.key === "Enter" && !event.shiftKey){
+
+        event.preventDefault();
+
+        sendMessage();
+
+    }
+
+}
+
+
+/* =========================================
+   DEMO AI RESPONSE ENGINE
+   ========================================= */
+
+function showAIResponse(question){
+
+    addMessage("SHZN.AI is thinking...","ai");
+
+    setTimeout(function(){
+
+        const messages =
+            document.querySelectorAll(".ai-message");
+
+        const last =
+            messages[messages.length - 1];
+
+        let answer = "";
+
+        const q = question.toLowerCase();
+
+
+        if(
+            q.includes("hello") ||
+            q.includes("hi") ||
+            q.includes("salam")
+        ){
+
+            answer =
+                "Hello! 👋 Welcome to SHZN.AI. How can I help you today?";
+
+        }
+
+        else if(
+            q.includes("html") ||
+            q.includes("css") ||
+            q.includes("javascript")
+        ){
+
+            answer =
+                "SHZN.AI Coding Assistant:\n\n" +
+                "HTML creates the structure of a webpage.\n" +
+                "CSS controls its design and appearance.\n" +
+                "JavaScript adds interaction and functionality.\n\n" +
+                "If you give me your coding problem, I can explain the concept and show you an example.";
+
+        }
+
+        else if(
+            q.includes("math") ||
+            q.includes("calculate") ||
+            q.includes("solve")
+        ){
+
+            answer =
+                "Sure! 🧮 Send me the complete mathematical question and I can help you work through it step by step.";
+
+        }
+
+        else if(
+            q.includes("study") ||
+            q.includes("exam") ||
+            q.includes("physics") ||
+            q.includes("chemistry")
+        ){
+
+            answer =
+                "📚 SHZN.AI Study Assistant\n\n" +
+                "Send me the exact topic or question. " +
+                "I can explain it in simple, exam-friendly wording and organize the important points.";
+
+        }
+
+        else if(
+            q.includes("design") ||
+            q.includes("logo") ||
+            q.includes("graphics")
+        ){
+
+            answer =
+                "🎨 SHZN.AI Creative Assistant\n\n" +
+                "Tell me what you are designing, the target audience, preferred colors and style. " +
+                "I can help you develop a creative direction.";
+
+        }
+
+        else{
+
+            answer =
+                "Thanks for asking SHZN.AI! 🤖\n\n" +
+                "Your question was:\n" +
+                question +
+                "\n\n" +
+                "This single-file version contains the complete website interface and demo assistant. " +
+                "For real AI-generated answers, a secure backend/API connection needs to be added.";
+
+        }
+
+
+        last.textContent = answer;
+
+    },700);
+
+}
+
+
+/* =========================================
+   LOCAL CHAT HISTORY
+   ========================================= */
+
+function saveChat(){
+
+    localStorage.setItem(
+        "SHZN_AI_CHAT",
+        chat.innerHTML
+    );
+
+}
+
+
+function loadChat(){
+
+    const saved =
+        localStorage.getItem("SHZN_AI_CHAT");
+
+    if(saved){
+
+        chat.innerHTML = saved;
+
+    }
+
+}
+
+
+function clearChat(){
+
+    localStorage.removeItem("SHZN_AI_CHAT");
+
+    chat.innerHTML = `
+        <div class="message ai-message">
+            👋 Hello! I'm SHZN.AI.
+
+            Ask me something about studies, writing,
+            coding, mathematics, science, ideas or creative work.
+
+            How can I help you?
+        </div>
+    `;
+
+}
+
+
+/* Save after sending */
+
+const originalSend = sendMessage;
+
+sendMessage = function(){
+
+    originalSend();
+
+    setTimeout(saveChat,1000);
+
+};
+
+
+/* =========================================
+   LOGIN
+   ========================================= */
+
+function openLogin(){
+
+    document.getElementById("loginModal").style.display =
+        "flex";
+
+}
+
+
+function closeLogin(){
+
+    document.getElementById("loginModal").style.display =
+        "none";
+
+}
+
+
+function loginUser(){
+
+    const username =
+        document.getElementById("username").value.trim();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const message =
+        document.getElementById("loginMessage");
+
+
+    if(!username || !email){
+
+        message.textContent =
+            "Please enter your username and email.";
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "SHZN_AI_USER",
+        JSON.stringify({
+            username:username,
+            email:email
+        })
+    );
+
+
+    message.textContent =
+        "Welcome to SHZN.AI, " + username + "!";
+
+    setTimeout(closeLogin,1000);
+
+}
+
+
+/* =========================================
+   NAVIGATION
+   ========================================= */
+
+function scrollToAI(){
+
+    document.getElementById("ai").scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================================
+   STARTUP
+   ========================================= */
+
+loadChat();
+
+</script>
+
+</body>
+</html>
